@@ -4,6 +4,7 @@
 #' @return A list of PLLRemoteTask objects for the given definition identifier
 #' @examples
 #' PLLRemoteTasksWithDefinition("29151F65-18AE-45E5-BD51-6D7E319BB9A8")
+#' @export
 PLLRemoteTasksWithDefinition <- function(definition.identifier) {
   path <- paste0("/task_definitions/", definition.identifier, ".json")
   response <- .RParallelGET(path)
@@ -20,6 +21,7 @@ PLLRemoteTasksWithDefinition <- function(definition.identifier) {
 #'
 #' @param tasks A list of PLLTask objects
 #' @return A list of the results of each of the PLLTask objects
+#' @export
 PLLResultsForTasks <- function(tasks) {
   lapply(tasks, function(task) task$result)
 }
@@ -29,6 +31,7 @@ PLLResultsForTasks <- function(tasks) {
 #'
 #' @param tasks A list of PLLTask objects
 #' @param join.attributes A list of strings specifying which keys to join
+#' @export
 PLLJoinedResultsForTasks <- function(tasks, join.attributes=NA) {
   if (.SafeIsNa(join.attributes)) join.attributes <- names(tasks[[1]]$result)
   

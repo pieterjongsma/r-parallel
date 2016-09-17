@@ -1,18 +1,18 @@
 
-.rparallelURL <- Sys.getenv("RPARALLEL_URL", unset="https://r-parallel.herokuapp.com/") # FIXME Make this https
+RParallelURL <- Sys.getenv("RPARALLEL_URL", unset="https://r-parallel.herokuapp.com/") # FIXME Make this https
 
 .RParallelGET <- function(path, ..., query=list(), accessToken=.RParallelAccessToken()) {
-  req <- GET(.rparallelURL, path=path, query=query, add_headers(Authorization=.RParallelAuthorizationHeader()), ...)
+  req <- GET(RParallelURL, path=path, query=query, add_headers(Authorization=.RParallelAuthorizationHeader()), ...)
   .RParallelCheck(req)
   req
 }
 .RParallelPOST <- function(path, ..., query=list(), accessToken=.RParallelAccessToken()) {
-  req <- POST(.rparallelURL, path=path, query=query, add_headers(Authorization=.RParallelAuthorizationHeader()), ...)
+  req <- POST(RParallelURL, path=path, query=query, add_headers(Authorization=.RParallelAuthorizationHeader()), ...)
   .RParallelCheck(req)
   req
 }
 .RParallelPUT <- function(path, ..., query=list(), accessToken=.RParallelAccessToken()) {
-  req <- PUT(.rparallelURL, path=path, query=query, add_headers(Authorization=.RParallelAuthorizationHeader()), ...)
+  req <- PUT(RParallelURL, path=path, query=query, add_headers(Authorization=.RParallelAuthorizationHeader()), ...)
   .RParallelCheck(req)
   req
 }
