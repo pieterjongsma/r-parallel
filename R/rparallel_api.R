@@ -41,6 +41,10 @@
   jsonlite::fromJSON(text, simplifyVector = FALSE)
 }
 
+PLLSetAccessToken <- function(accessToken) {
+  Sys.setenv(RPARALLEL_PAT = accessToken)
+}
+
 .RParallelAccessToken <- function() {
   env <- Sys.getenv('RPARALLEL_PAT')
   if (!identical(env, "")) return(env)
@@ -59,7 +63,7 @@
   }
 
   message("Updating RPARALLEL_PAT env var to PAT")
-  Sys.setenv(RPARALLEL_PAT = accessToken)
+  PLLSetAccessToken(accessToken)
 
   accessToken
 }
