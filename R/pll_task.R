@@ -4,6 +4,7 @@
 # Default subclasses: PLLLocalTask, PLLRemoteTask
 #
 
+#' @export
 PLLTask <- R6Class("PLLTask",
   public = list(
     initialize = function(taskDefinition) {

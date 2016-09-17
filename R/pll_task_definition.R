@@ -3,6 +3,7 @@
 # Wraps a function and provides methods to execute the function locally or remotely
 #
 
+#' @export
 PLLTaskDefinition <- R6Class("PLLTaskDefinition",
   public = list(
     FUN = NA,

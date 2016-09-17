@@ -1,3 +1,4 @@
+#' @export
 PLLRemoteTask <- R6Class("PLLRemoteTask",
   inherit = PLLTask,
   

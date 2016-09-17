@@ -41,6 +41,7 @@ RParallelURL <- Sys.getenv("RPARALLEL_URL", unset="https://r-parallel.herokuapp.
   jsonlite::fromJSON(text, simplifyVector = FALSE)
 }
 
+#' @export
 PLLSetAccessToken <- function(accessToken) {
   Sys.setenv(RPARALLEL_PAT = accessToken)
 }

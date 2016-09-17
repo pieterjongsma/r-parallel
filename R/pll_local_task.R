@@ -1,3 +1,4 @@
+#' @export
 PLLLocalTask <- R6Class("PLLLocalTask",
   inherit = PLLTask,
   
