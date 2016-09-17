@@ -26,7 +26,7 @@ PLLRemoteTask <- R6Class("PLLRemoteTask",
         configuration$task$template_task_id <- self$templateTask$identifier
       }
       
-      response <- .HowardPOST("/api/tasks",
+      response <- .RParallelPOST("/api/tasks",
                              body=configuration,
                              encode="json")
       taskAttributes <- content(response)$task
@@ -70,7 +70,7 @@ PLLRemoteTask <- R6Class("PLLRemoteTask",
       private$resultFile <- file.path(tempdir(), paste0(UUIDgenerate(), "-result.RData"))
       
       path <- paste0("/api/tasks/", private$remoteIdentifier, "/result")
-      response <- .HowardGET(path,
+      response <- .RParallelGET(path,
                             write_disk(private$resultFile)) # FIXME Replace with function that does not check for json
       
       load(private$resultFile)

@@ -11,7 +11,8 @@ LazyData: true
 Imports:
     jsonlite,
     httr,
-    uuid
+    uuid,
+    R6
 Suggests:
     testthat
 RoxygenNote: 5.0.1

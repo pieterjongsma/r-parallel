@@ -6,7 +6,7 @@
 #' PLLRemoteTasksWithDefinition("29151F65-18AE-45E5-BD51-6D7E319BB9A8")
 PLLRemoteTasksWithDefinition <- function(definition.identifier) {
   path <- paste0("/task_definitions/", definition.identifier, ".json")
-  response <- .HowardGET(path)
+  response <- .RParallelGET(path)
   
   attributes <- content(response)$task_definition
   tasks <- lapply(attributes$task_ids, function(task_id) {
