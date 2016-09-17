@@ -1,6 +1,11 @@
 
 RParallelURL <- Sys.getenv("RPARALLEL_URL", unset="https://r-parallel.herokuapp.com/") # FIXME Make this https
 
+.RParallelHEAD <- function(path, ..., query=list(), accessToken=.RParallelAccessToken()) {
+  req <- HEAD(RParallelURL, path=path, query=query, add_headers(Authorization=.RParallelAuthorizationHeader()), ...)
+  .RParallelCheck(req)
+  req
+}
 .RParallelGET <- function(path, ..., query=list(), accessToken=.RParallelAccessToken()) {
   req <- GET(RParallelURL, path=path, query=query, add_headers(Authorization=.RParallelAuthorizationHeader()), ...)
   .RParallelCheck(req)

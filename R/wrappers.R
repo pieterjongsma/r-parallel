@@ -1,4 +1,4 @@
 #' @export
 PLLExecuteRemotelyBatch <- function(FUN, batchSize=1) {
-  PLLTaskDefinition(FUN)$executeRemotelyBatch(batchSize)
+  PLLTaskDefinition$new(FUN)$executeRemotelyBatch(batchSize)
 }

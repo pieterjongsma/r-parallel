@@ -71,6 +71,24 @@ PLLRemoteTask <- R6Class("PLLRemoteTask",
       private$resultFile <- file.path(tempdir(), paste0(UUIDgenerate(), "-result.RData"))
       
       path <- paste0("/api/tasks/", private$remoteIdentifier, "/result")
+      
+      # Check for result-file existence
+      retryInterval = 5 # seconds
+      timeout = 60*60 # 1 hour
+      maxTries = round(timeout / retryInterval)
+      for (i in 0:maxTries) {
+        response <- .RParallelHEAD(path)
+        if (response$status_code < 400) {
+          break
+        } else if (i == 0) {
+          cat("Result is not yet available. Waiting for task to finish...")
+        } else if (i == maxTries) {
+          cat("Waiting for result timed out")
+          return(FALSE)
+        }
+      }
+      
+      # Get the actual response
       response <- .RParallelGET(path,
                             write_disk(private$resultFile)) # FIXME Replace with function that does not check for json
       
