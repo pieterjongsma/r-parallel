@@ -1,4 +1,4 @@
-Package: RemoteFunction
+Package: RParallel
 Title: Interface to RemoteFunction cloud service
 Version: 0.0.0.9000
 Authors@R: person("Pieter", "Jongsma", , "pieter.jongsma@gmail.com", role = c("aut", "cre"))
