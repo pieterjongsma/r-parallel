@@ -1,23 +1,25 @@
 
-RParallelURL <- Sys.getenv("RPARALLEL_URL", unset="https://r-parallel.herokuapp.com/") # FIXME Make this https
+.RParallelURL <- function() {
+  Sys.getenv("RPARALLEL_URL", unset="https://r-parallel.herokuapp.com/")
+}
 
-.RParallelHEAD <- function(path, ..., query=list(), accessToken=.RParallelAccessToken()) {
-  req <- HEAD(RParallelURL, path=path, query=query, add_headers(Authorization=.RParallelAuthorizationHeader()), ...)
+.RParallelHEAD <- function(path, ..., query=list(), accessToken=.PLLAccessToken()) {
+  req <- HEAD(.RParallelURL(), path=path, query=query, add_headers(Authorization=.RParallelAuthorizationHeader()), ...)
   .RParallelCheck(req)
   req
 }
-.RParallelGET <- function(path, ..., query=list(), accessToken=.RParallelAccessToken()) {
-  req <- GET(RParallelURL, path=path, query=query, add_headers(Authorization=.RParallelAuthorizationHeader()), ...)
+.RParallelGET <- function(path, ..., query=list(), accessToken=.PLLAccessToken()) {
+  req <- GET(.RParallelURL(), path=path, query=query, add_headers(Authorization=.RParallelAuthorizationHeader()), ...)
   .RParallelCheck(req)
   req
 }
-.RParallelPOST <- function(path, ..., query=list(), accessToken=.RParallelAccessToken()) {
-  req <- POST(RParallelURL, path=path, query=query, add_headers(Authorization=.RParallelAuthorizationHeader()), ...)
+.RParallelPOST <- function(path, ..., query=list(), accessToken=.PLLAccessToken()) {
+  req <- POST(.RParallelURL(), path=path, query=query, add_headers(Authorization=.RParallelAuthorizationHeader()), ...)
   .RParallelCheck(req)
   req
 }
-.RParallelPUT <- function(path, ..., query=list(), accessToken=.RParallelAccessToken()) {
-  req <- PUT(RParallelURL, path=path, query=query, add_headers(Authorization=.RParallelAuthorizationHeader()), ...)
+.RParallelPUT <- function(path, ..., query=list(), accessToken=.PLLAccessToken()) {
+  req <- PUT(.RParallelURL(), path=path, query=query, add_headers(Authorization=.RParallelAuthorizationHeader()), ...)
   .RParallelCheck(req)
   req
 }
@@ -30,7 +32,7 @@ RParallelURL <- Sys.getenv("RPARALLEL_URL", unset="https://r-parallel.herokuapp.
 }
 
 .RParallelAuthorizationHeader <- function() {
-  return(paste("Token", .RParallelAccessToken()))
+  return(paste("Token", .PLLAccessToken()))
 }
 
 .RParallelCheck <- function(req) {
@@ -51,7 +53,7 @@ PLLSetAccessToken <- function(accessToken) {
   Sys.setenv(RPARALLEL_PAT = accessToken)
 }
 
-.RParallelAccessToken <- function() {
+.PLLAccessToken <- function() {
   env <- Sys.getenv('RPARALLEL_PAT')
   if (!identical(env, "")) return(env)
 
@@ -60,7 +62,7 @@ PLLSetAccessToken <- function(accessToken) {
       call. = FALSE)
   }
 
-  message("Couldn't find environment variable RPARALLEL_PAT. See ?.RParallelAccessToken for more details")
+  message("Couldn't find environment variable RPARALLEL_PAT. See ?.PLLAccessToken for more details")
   message("Please enter your PAT and press enter:")
   accessToken <- readline(": ")
 
