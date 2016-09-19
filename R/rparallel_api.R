@@ -38,8 +38,12 @@
 .RParallelCheck <- function(req) {
   if (req$status_code < 400) return(invisible())
   
-  message <- .RParallelParse(req)$message
-  stop("HTTP failure: ", req$status_code, "\n", message, call. = FALSE)
+  if (req$status_code == 401) { # Unauthenticated
+    stop("HTTP authentication failed. Please set your API Access Token using the `PLLSetAccessToken` function. Type `?PLLSetAccessToken` for more information.", call. = FALSE)
+  } else {
+    message <- .RParallelParse(req)$message
+    stop("HTTP failure: ", req$status_code, "\n", message, call. = FALSE)
+  }
 }
 
 .RParallelParse <- function(req) {
@@ -48,6 +52,12 @@
   jsonlite::fromJSON(text, simplifyVector = FALSE)
 }
 
+#' Set an HTTP Access Token for use in requests to the R-Parallel service.
+#' By default, this parameter is read from the RPARALLEL_PAT environment variable, but can be overwritten using this function.
+#'
+#' @param accessToken Your Private Access Token (PAT), which can be found under account details at https://r-parallel.herokuapp.com/
+#' @examples
+#' PLLSetAccessToken("bd53d890b16773848fff3d226a761ed4") # This is an example key. Your key will be different.
 #' @export
 PLLSetAccessToken <- function(accessToken) {
   Sys.setenv(RPARALLEL_PAT = accessToken)
