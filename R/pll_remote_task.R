@@ -81,7 +81,7 @@ PLLRemoteTask <- R6Class("PLLRemoteTask",
         if (response$status_code < 400) {
           break
         } else if (response$status_code == 406) {
-          else if (i == 0) {
+          if (i == 0) {
             cat("Result is not yet available. Waiting for task to finish...")
           } else if (i == maxTries) {
             cat("Waiting for result timed out")
