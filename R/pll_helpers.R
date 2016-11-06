@@ -45,6 +45,6 @@ PLLJoinedResultsForTasks <- function(tasks, join.attributes=NA) {
 }
 
 #' @export
-PLLExecuteRemotelyBatch <- function(FUN, batchSize=1) {
-  PLLTaskDefinition$new(FUN)$executeRemotelyBatch(batchSize)
+PLLExecuteRemotelyBatch <- function(batchSize=1, FUN, ...) {
+  PLLTaskDefinition$new(FUN)$executeRemotelyBatch(batchSize, ...)
 }
